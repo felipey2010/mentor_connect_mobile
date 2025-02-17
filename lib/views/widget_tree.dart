@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mentor_hub_mobile/views/pages/connections_page.dart';
 import 'package:mentor_hub_mobile/views/pages/feed_page.dart';
 import 'package:mentor_hub_mobile/views/pages/messages_page.dart';
+import 'package:mentor_hub_mobile/views/pages/my_profile_page/my_profile_page.dart';
 import 'package:mentor_hub_mobile/views/pages/notifications_page.dart';
 import 'package:mentor_hub_mobile/views/pages/profile_page.dart';
 import 'package:mentor_hub_mobile/views/pages/rooms_page.dart';
@@ -28,7 +29,7 @@ class WidgetTree extends StatelessWidget {
         appBar: AppBar(
           title: TextButton(
               onPressed: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ProfilePage())),
+                  MaterialPageRoute(builder: (context) => MyProfilePage())),
               child: Row(
                 children: [
                   UserAvatar(
@@ -63,8 +64,8 @@ class WidgetTree extends StatelessWidget {
                         builder: (context) => NotificationsPage()))
               },
               style: OutlinedButton.styleFrom(
-                side: BorderSide(color: Colors.grey.shade800),
-              ),
+                  side: BorderSide(color: Colors.grey.shade800),
+                  shape: CircleBorder()),
               child: Icon(
                 Icons.notifications,
                 color: Colors.white,
