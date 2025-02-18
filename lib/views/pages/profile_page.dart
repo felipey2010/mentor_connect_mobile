@@ -21,11 +21,6 @@ class ProfilePage extends StatelessWidget {
       body: Center(
         child: Text("Página de Perfil"),
       ),
-      // ValueListenableBuilder(
-      //   valueListenable: selectedPageNotifier,
-      //   builder: (context, selectedPage, child) {
-      //     return pages.elementAt(selectedPage);
-      //   },
     );
   }
 }

@@ -10,6 +10,8 @@ class NavbarWidget extends StatelessWidget {
       valueListenable: selectedPageNotifier,
       builder: (context, selectedPage, child) {
         return NavigationBar(
+          backgroundColor:
+              Theme.of(context).bottomNavigationBarTheme.backgroundColor,
           destinations: [
             NavigationDestination(
               icon: Icon(Icons.home),
@@ -19,12 +21,17 @@ class NavbarWidget extends StatelessWidget {
               icon: Icon(Icons.people),
               label: 'Conexões',
             ),
-            NavigationDestination(icon: Icon(Icons.room), label: "Salas"),
+            NavigationDestination(icon: Icon(Icons.room), label: 'Salas'),
             NavigationDestination(
               icon: Icon(Icons.message),
               label: 'Mensagens',
             ),
+            NavigationDestination(
+              icon: Icon(Icons.menu),
+              label: 'Menu',
+            ),
           ],
+          elevation: 8.0,
           selectedIndex: selectedPage,
           onDestinationSelected: (value) {
             selectedPageNotifier.value = value;

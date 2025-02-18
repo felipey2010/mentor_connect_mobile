@@ -1,22 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:mentor_hub_mobile/data/models.dart';
+import 'package:mentor_hub_mobile/data/notifiers.dart';
 import 'package:mentor_hub_mobile/views/pages/connections_page.dart';
 import 'package:mentor_hub_mobile/views/pages/feed_page.dart';
 import 'package:mentor_hub_mobile/views/pages/messages_page.dart';
 import 'package:mentor_hub_mobile/views/pages/my_profile_page/my_profile_page.dart';
 import 'package:mentor_hub_mobile/views/pages/notifications_page.dart';
-import 'package:mentor_hub_mobile/views/pages/profile_page.dart';
 import 'package:mentor_hub_mobile/views/pages/rooms_page.dart';
+import 'package:mentor_hub_mobile/views/pages/settings_page/settings_page.dart';
 import 'package:mentor_hub_mobile/views/widgets/navbar_widget.dart';
 import 'package:mentor_hub_mobile/views/widgets/useravatar_widget.dart';
 
 List<Widget> pages = [
   FeedPage(),
   ConnectionsPage(),
+  RoomsPage(),
   MessagesPage(),
-  ProfilePage(),
-  NotificationsPage(),
-  RoomsPage()
+  SettingsPage()
 ];
+
+final sampleProfile = Profile(
+  id: '1',
+  name: 'Felipey Mentor',
+  username: 'felipey',
+  email: 'felipey.mento@gmail.com',
+  bio: 'Experienced software engineer passionate about mentoring.',
+  image: 'assets/images/user2.jpg',
+  skills: ['Flutter', 'Dart', 'Firebase', 'UI/UX'],
+  mentoringPreference: 'Mentor',
+  joinedAt: DateTime.now(),
+);
 
 class WidgetTree extends StatelessWidget {
   const WidgetTree({super.key});
@@ -28,8 +41,12 @@ class WidgetTree extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: TextButton(
-              onPressed: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => MyProfilePage())),
+              onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MyProfilePage(
+                            profile: sampleProfile,
+                          ))),
               child: Row(
                 children: [
                   UserAvatar(
@@ -48,7 +65,7 @@ class WidgetTree extends StatelessWidget {
                         title,
                         style: TextStyle(
                             fontSize: 16.0,
-                            color: Color.fromARGB(255, 255, 174, 0),
+                            color: Theme.of(context).colorScheme.primary,
                             fontWeight: FontWeight.bold),
                       ),
                     ],
@@ -64,11 +81,11 @@ class WidgetTree extends StatelessWidget {
                         builder: (context) => NotificationsPage()))
               },
               style: OutlinedButton.styleFrom(
-                  side: BorderSide(color: Colors.grey.shade800),
-                  shape: CircleBorder()),
+                side: BorderSide(color: Color.fromARGB(50, 158, 158, 158)),
+                shape: CircleBorder(),
+              ),
               child: Icon(
                 Icons.notifications,
-                color: Colors.white,
               ),
             ),
           ],
@@ -80,14 +97,16 @@ class WidgetTree extends StatelessWidget {
             ),
           ),
         ),
-        body: Center(
-          child: Text("Pages"),
-        ),
-        // ValueListenableBuilder(
-        //   valueListenable: selectedPageNotifier,
-        //   builder: (context, selectedPage, child) {
-        //     return pages.elementAt(selectedPage);
-        //   },
+        body: SafeArea(
+            child: ValueListenableBuilder(
+          valueListenable: selectedPageNotifier,
+          builder: (context, activePage, child) {
+            return Container(
+              padding: EdgeInsets.all(8.0),
+              child: pages.elementAt(activePage),
+            );
+          },
+        )),
         bottomNavigationBar: NavbarWidget());
   }
 }
